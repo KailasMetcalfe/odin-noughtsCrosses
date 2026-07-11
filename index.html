@@ -8,6 +8,30 @@
 </head>
 <body>
     
+    <div id="container">
+        <form>
+            <div id="inputs">
+                <label for="X-name">Name (X):</label>
+                <input type="text" required id="X-name" name="X-name" maxlength="30">
+                <label for="O-name">Name (O):</label>
+                <input type="text" required id="O-name" name="O-name" maxlength="30">
+            </div>
+            <button type="submit">Start</button>
+        </form>
+        <p id="display"></p>
+        <div id="board">
+            <button type="button" data-row = "0" data-column="0"></button>
+            <button type="button" data-row = "0" data-column="1"></button>
+            <button type="button" data-row = "0" data-column="2"></button>
+            <button type="button" data-row = "1" data-column="0"></button>
+            <button type="button" data-row = "1" data-column="1"></button>
+            <button type="button" data-row = "1" data-column="2"></button>
+            <button type="button" data-row = "2" data-column="0"></button>
+            <button type="button" data-row = "2" data-column="1"></button>
+            <button type="button" data-row = "2" data-column="2"></button>
+        </div>
+    </div>
+
     <script src="js.js"></script>
 </body>
 </html>
