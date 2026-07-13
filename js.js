@@ -50,6 +50,7 @@ const gameController = (() => {
 
         currentPlayer = playerX;
         gameBoard.resetBoard();
+        displayController.updateGridDisplay();
         displayController.disableNames(true);
         displayController.displayActivePlayer(currentPlayer);
     }
@@ -62,8 +63,16 @@ const gameController = (() => {
         // If successful, continue with logic
         else {
             displayController.updateGridDisplay();
-            if (checkWin()) {displayController.displayPlayerWon(currentPlayer);}
-            else if (checkTie()) {displayController.displayTie();}
+            if (checkWin()) {
+                displayController.displayPlayerWon(currentPlayer);
+                displayController.disableNames(false);
+                displayController.disableGrid(true);
+            }
+            else if (checkTie()) {
+                displayController.displayTie();
+                displayController.disableNames(false);
+                displayController.disableGrid(true);
+            }
             else {
                 currentPlayer === playerX ? currentPlayer = playerO : currentPlayer = playerX;
                 displayController.displayActivePlayer(currentPlayer);
@@ -163,7 +172,7 @@ const displayController = (() => {
         nameForm.addEventListener("submit", (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            enableGrid()
+            disableGrid(false)
             gameController.initialiseGame(formData.get("X-Name"), formData.get("O-Name"));
         })
 
@@ -177,16 +186,19 @@ const displayController = (() => {
 
     }
 
-    function enableGrid() {
-        const gridBtns = document.querySelectorAll("#board button");
-        for (let btn of gridBtns) {
-            btn.disabled = false;
+    function disableGrid(state) {
+        if (typeof state != "boolean") console.log("ERROR");
+        else {
+            const gridBtns = document.querySelectorAll("#board button");
+            for (let btn of gridBtns) {
+                btn.disabled = state;
+            }
         }
     }
 
 
     return {clearDisplay, displayTie, displayPlayerWon, displayActivePlayer, 
-        updateGridDisplay, setupEventListeners, disableNames, disableStart}
+        updateGridDisplay, setupEventListeners, disableNames, disableStart, disableGrid}
 })()
 
 
